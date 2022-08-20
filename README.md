@@ -1,22 +1,21 @@
 # SnakeAndLadderAssessment
-Docker uri: docker.io/bitpant/snakeladder-snakesandladders:0.0.1-SNAPSHOT
+# My docker image
+https://hub.docker.com/repository/docker/bitpant/snakeladder-snakesandladders
 
+# Docker uri
+docker.io/bitpant/snakeladder-snakesandladders:0.0.1-SNAPSHOT
+
+# command to run image
 docker run -p 8080:8080 bitpant/snakeladder-snakesandladders:0.0.1-SNAPSHOT
 
-#game:
-http://localhost:8080/game/loadboard
 
-http://localhost:8080/game/rollandplay?id=3
+# We will need these two apis to play the game
 
-#player:
-http://localhost:8080/player/getallplayer
+http://localhost:8080/game/loadboard - to load snakes,ladders and players to the board and also to reset the game.
 
-http://localhost:8080/player/getplayerbyid?id=3
+http://localhost:8080/game/rollandplay?id=3  We can pass player in this api and it will roll dice and move in board
 
-http://localhost:8080/player/createplayer
+So front ends can call these apis and players can play.
 
-http://localhost:8080/player/deleteplayerbyid?id=8
-
-
-#Swagger: 
+# Swagger
 http://localhost:8080/swagger-ui.html

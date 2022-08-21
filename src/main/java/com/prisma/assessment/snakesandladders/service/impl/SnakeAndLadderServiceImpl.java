@@ -88,7 +88,7 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
         Player currentPlayer = playerService.getPlayerById(id);
 
         if (checkIfPlayerIsPartOfCurrentGame(currentPlayer)) {
-            positionDto.setMoveDetail(MessageFormat.format("                       {0} is not part of this game", currentPlayer.getPlayerName()));
+            positionDto.setMoveDetail(MessageFormat.format("{0} is not part of this game", currentPlayer.getPlayerName()));
             logger.debug("{} is not part of this game", currentPlayer.getPlayerName());
             return positionDto;
         }
@@ -131,11 +131,11 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
         for (int i = 1; i <= totalDice; i++) {
             temp = rand.nextInt(6) + 1;
             logger.debug("{} rolled {} on dice {}", currentPlayer.getPlayerName(), temp, i);
-            positionDto.setMoveDetail(MessageFormat.format("                       {0} rolled {1} on dice {2}", currentPlayer.getPlayerName(), temp, i));
+            positionDto.setMoveDetail(MessageFormat.format("                       {0} rolled {1} on dice {2} ,", currentPlayer.getPlayerName(), temp, i));
             if (temp == totalValue) {
                 positionDto.setSameDiceValues(true);
                 logger.debug("{} rolled double so Player will also get second chance after finishing current move", currentPlayer.getPlayerName());
-                positionDto.setMoveDetail(MessageFormat.format("                   {0} rolled double so Player will also get second chance after finishing current move", currentPlayer.getPlayerName()));
+                positionDto.setMoveDetail(MessageFormat.format("                   {0} rolled double so Player will also get second chance after finishing current move ,", currentPlayer.getPlayerName()));
             }
             totalValue += temp;
         }
@@ -150,9 +150,9 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
         positionDto.setGameComplete(gameCompleted);
         if (gameCompleted) {
             logger.debug("{} wins the game", currentPlayer.getPlayerName());
-            positionDto.setMoveDetail(MessageFormat.format("                   {0} wins the game", currentPlayer.getPlayerName()));
+            positionDto.setMoveDetail(MessageFormat.format("                   {0} wins the game ,", currentPlayer.getPlayerName()));
         } else {
-            positionDto.setMoveDetail("                     " + currentPlayer.getPlayerName() + " moved to " + currentPlayer.getPlayerCurrentPosition());
+            positionDto.setMoveDetail("                     " + currentPlayer.getPlayerName() + " moved to " + currentPlayer.getPlayerCurrentPosition()+" ,");
         }
     }
 
@@ -184,7 +184,7 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
             int boardSize = board.getSize();
             if (newPosition > boardSize) {
                 newPosition = boardSize - (newPosition - boardSize);
-                positionDto.setMoveDetail(MessageFormat.format("                           {0} overshoot the {1} square by {2} so moved back to {3}", player.getPlayerName(), board.getSize(), -1 * (newPosition - boardSize), newPosition));
+                positionDto.setMoveDetail(MessageFormat.format("                           {0} overshoot the {1} square by {2} so moved back to {3} ,", player.getPlayerName(), board.getSize(), -1 * (newPosition - boardSize), newPosition));
                 logger.debug("{} overshoot the {} square by {} so moved back to {}", player.getPlayerName(), board.getSize(), -1 * (newPosition - boardSize), newPosition);
             }
             newPosition = getNewPositionAfterSnakeLadder(player, newPosition, positionDto);
@@ -205,7 +205,7 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
         snakeEnd = board.getSnakes().stream().filter(snake -> snake.getStartPosition() == position)
                 .findFirst();
         if (snakeEnd.isPresent()) {
-            positionDto.setMoveDetail(MessageFormat.format("                          {0} got snake at {1} position and reached position {2}", player.getPlayerName(), position, snakeEnd.get().getEndPosition()));
+            positionDto.setMoveDetail(MessageFormat.format("                          {0} got snake at {1} position and reached position {2} ,", player.getPlayerName(), position, snakeEnd.get().getEndPosition()));
             logger.debug("{} got snake at {} position and reached position {}", player.getPlayerName(), position, snakeEnd.get().getEndPosition());
             return snakeEnd.get().getEndPosition();
         }
@@ -213,7 +213,7 @@ public class SnakeAndLadderServiceImpl implements SnakeAndLadderService {
         ladderEnd = board.getLadders().stream().filter(ladder -> ladder.getStartPosition() == position)
                 .findFirst();
         if (ladderEnd.isPresent()) {
-            positionDto.setMoveDetail(MessageFormat.format("                          {0} got ladder at {1} position and reached position {2}", player.getPlayerName(), position, ladderEnd.get().getEndPosition()));
+            positionDto.setMoveDetail(MessageFormat.format("                          {0} got ladder at {1} position and reached position {2} ,", player.getPlayerName(), position, ladderEnd.get().getEndPosition()));
             logger.debug("{} got ladder at {} position and reached position {}", player.getPlayerName(), position, ladderEnd.get().getEndPosition());
             return ladderEnd.get().getEndPosition();
         }
